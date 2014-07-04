@@ -1,4 +1,4 @@
-package de.javacourse._02_helloword_int;
+package de.javacourse._02_helloworld_int;
 
 public class ApplicationWithInt
 {
