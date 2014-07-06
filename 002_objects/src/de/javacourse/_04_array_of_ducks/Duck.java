@@ -1,4 +1,4 @@
-package de.javacourse._03_private_method_duck;
+package de.javacourse._04_array_of_ducks;
 
 public class Duck
 {
@@ -13,6 +13,10 @@ public class Duck
     public Duck(String name)
     {
         this.name = name;
+    }
+
+    public void setPattern(String newPattern){
+        this.pattern = newPattern;
     }
 
     public void speak()
