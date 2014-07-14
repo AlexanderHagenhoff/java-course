@@ -1,6 +1,6 @@
 package de.javacourse._05_function;
 
-public class ApplicationWithFunction
+public class _03_ApplicationWithFunctionArgumentsAndResult
 {
     public static void main(String[] args)
     {
