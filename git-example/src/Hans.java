@@ -1,6 +1,6 @@
 /**
  * Created by hans on 28.01.15.
  */
-public class hans {
-   
+public class Hans {
+
 }
