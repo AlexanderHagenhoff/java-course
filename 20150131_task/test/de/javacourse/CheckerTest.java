@@ -176,7 +176,7 @@ public class CheckerTest
     }
 
     @Test
-     public void isX_should_return_false_for_input_492() throws Exception
+    public void isX_should_return_false_for_input_492() throws Exception
     {
         boolean result = checker.isX(492);
 
