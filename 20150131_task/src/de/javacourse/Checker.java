@@ -4,7 +4,16 @@ public class Checker
 {
     public boolean isX(int input)
     {
-        //modify code here
-        return false;
+        if (input == 1) {
+            return false;
+        } else {
+            for (int i = 2; i <= Math.sqrt(input); i++) {
+
+                if (input % i == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
