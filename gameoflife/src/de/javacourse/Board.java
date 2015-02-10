@@ -1,7 +1,5 @@
 package de.javacourse;
 
-import java.util.List;
-
 public class Board
 {
     private Cell[][] cells;
