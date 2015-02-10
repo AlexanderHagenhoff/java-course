@@ -2,51 +2,32 @@ package de.javacourse;
 
 import java.util.Random;
 
-public class BoardFactory {
-
-    private int rows;
-    private int cols;
-
-    private Cell[][] cells;
-    private Board board;
-
-    public BoardFactory createBoard(int rows, int cols)
+public class BoardFactory
+{
+    public Board createBoard(int width, int height)
     {
-        this.rows = rows;
-        this.cols = cols;
+        Board board = new Board(width, height);
 
-        cells = new Cell[rows][cols];
+        populateBoard(board);
 
-        populateCells();
-        createBoard();
-
-        return this;
+        return board;
     }
 
-    private void populateCells()
+    private void populateBoard(Board board)
     {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                cells[i][j] = new Cell(getRandomDeadOrAlive());
+        for (int y = 0; y < board.getHeigth(); y++) {
+            for (int x = 0; x < board.getWidth(); x++) {
+                Cell cell = board.getCell(x,y);
+                cell.setAlivePresent(getRandomDeadOrAliveCell());
             }
         }
     }
 
-    public void createBoard()
-    {
-        board = new Board(cells);
-    }
-
-    private boolean getRandomDeadOrAlive()
+    private boolean getRandomDeadOrAliveCell()
     {
         Random rand = new Random();
-        int alive = rand.nextInt((1) + 1);
+        int alive = rand.nextInt(2);
 
-        return (alive == 1);
-    }
-
-    public Board getBoard()
-    {
-        return board;
+        return alive == 1;
     }
 }

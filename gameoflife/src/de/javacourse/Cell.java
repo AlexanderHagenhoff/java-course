@@ -2,12 +2,10 @@ package de.javacourse;
 
 public class Cell
 {
-    private boolean alivePresent;
-    private boolean aliveFuture;
+    private boolean alivePresent = false;
+    private boolean aliveFuture = false;
 
-    public Cell(boolean alivePresent)
-    {
-        this.alivePresent = alivePresent;
+    public Cell(){
     }
 
     public boolean isAlivePresent()

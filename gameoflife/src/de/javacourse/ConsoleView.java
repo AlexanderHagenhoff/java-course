@@ -2,18 +2,18 @@ package de.javacourse;
 
 public class ConsoleView
 {
-    public void printBoardToConsole(Board board, int rows, int cols)
+    public void printBoardToConsole(Board board)
     {
-        Cell[][] cells = board.getCells();
-
         System.out.print("\n\n");
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                char drawIcon = '+';
+        for (int y = 0; y < board.getHeigth(); y++) {
+            for (int x = 0; x < board.getWidth(); x++) {
+                char drawIcon = ' ';
 
-                if (cells[i][j].isAlivePresent()) {
-                    drawIcon = 'o';
+                Cell cell = board.getCell(x,y);
+
+                if (cell.isAlivePresent()) {
+                    drawIcon = '*';
                 }
 
                 System.out.print(drawIcon);

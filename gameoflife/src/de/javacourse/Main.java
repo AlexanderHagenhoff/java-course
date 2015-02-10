@@ -4,10 +4,10 @@ public class Main {
 
     public static void main(String[] args)
     {
-        int rows = 10;
-        int cols = 10;
+        int width = 10;
+        int height = 11;
 
-	    GameController controller = new GameController(rows, cols);
+        GameController controller = new GameController(width, height);
         controller.startGame();
     }
 }
