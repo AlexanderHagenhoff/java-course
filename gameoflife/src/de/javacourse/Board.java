@@ -1,18 +1,32 @@
 package de.javacourse;
 
-import java.util.List;
-
 public class Board
 {
     private Cell[][] cells;
 
-    public Board(Cell[][] cells)
+    public Board(int width, int height)
     {
-        this.cells = cells;
+        cells = new Cell[width][height];
+
+        for (int y = 0; y < this.getHeigth(); y++) {
+            for (int x = 0; x < this.getWidth(); x++) {
+                cells[x][y] = new Cell();
+            }
+        }
     }
 
-    public Cell[][] getCells()
+    public Cell getCell(int x, int y)
     {
-        return cells;
+        return cells[x][y];
+    }
+
+    public int getWidth()
+    {
+        return cells.length;
+    }
+
+    public int getHeigth()
+    {
+        return cells[0].length;
     }
 }
