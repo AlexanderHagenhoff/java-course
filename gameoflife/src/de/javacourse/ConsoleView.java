@@ -1,8 +1,9 @@
 package de.javacourse;
 
-public class ConsoleView
+public class ConsoleView implements View
 {
-    public void printBoardToConsole(Board board)
+    @Override
+    public void render(Board board)
     {
         System.out.print("\n\n");
 

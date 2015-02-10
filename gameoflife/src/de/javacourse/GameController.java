@@ -2,16 +2,19 @@ package de.javacourse;
 
 public class GameController
 {
-    private Board board;
-    private ConsoleView view;
+    private final NeighbourHelper neighbourHelper;
 
-    public GameController(int rows, int cols)
+    private final Rules rules;
+
+    private final Board board;
+    private final View view;
+
+    public GameController(Board board, View view, Rules rules, NeighbourHelper neighbourHelper)
     {
-        BoardFactory boardFactory = new BoardFactory();
-
-        board = boardFactory.createBoard(rows, cols);
-
-        view = new ConsoleView();
+        this.board = board;
+        this.view = view;
+        this.neighbourHelper = neighbourHelper;
+        this.rules = rules;
     }
 
     public void startGame()
@@ -21,6 +24,6 @@ public class GameController
 
     private void renderView()
     {
-        view.printBoardToConsole(board);
+        view.render(board);
     }
 }

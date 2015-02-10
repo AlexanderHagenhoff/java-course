@@ -10,13 +10,13 @@ public class Board
 
         for (int y = 0; y < this.getHeigth(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {
-                Cell cell = new Cell();
-                cells[x][y] = cell;
+                cells[x][y] = new Cell();
             }
         }
     }
 
-    public Cell getCell(int x, int y){
+    public Cell getCell(int x, int y)
+    {
         return cells[x][y];
     }
 
