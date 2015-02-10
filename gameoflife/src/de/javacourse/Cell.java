@@ -3,6 +3,7 @@ package de.javacourse;
 public class Cell
 {
     private boolean alivePresent;
+
     private boolean aliveFuture;
 
     public Cell(boolean alivePresent)
