@@ -26,3 +26,6 @@ public class ConsoleView implements View
         System.out.print("\n\n");
     }
 }
+
+//i/x sind spalten/tiefe/ cols
+//j/y sind zeilen/breite/rows
