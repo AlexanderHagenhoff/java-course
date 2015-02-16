@@ -5,7 +5,7 @@ public class Main
     public static void main(String[] args)
     {
         int width = 20;
-        int height = 21;
+        int height = 20;
 
         View view = new ConsoleView();
 
@@ -13,7 +13,8 @@ public class Main
         Board board = boardFactory.createBoard(width, height);
 
         NeighbourHelper neighbourHelper = new NeighbourHelper();
-        Rules rules = new Rules();
+        Rules rules = new RuleSetDefault();
+        neighbourHelper.setBordersAreLimiting(rules.getBordersAreLimiting());
 
         GameController controller = new GameController(board, view, rules, neighbourHelper);
         controller.startGame();

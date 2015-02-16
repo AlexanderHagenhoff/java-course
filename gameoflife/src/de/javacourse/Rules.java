@@ -1,9 +1,7 @@
 package de.javacourse;
 
-public class Rules
+interface Rules
 {
-    public boolean isAliveFuture(Cell cell, int neighboursAliveCount)
-    {
-        return false;
-    }
+    public boolean getBordersAreLimiting();
+    public boolean isAliveFuture(Cell cell, int neighboursAliveCount);
 }
