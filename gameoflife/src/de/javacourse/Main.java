@@ -1,5 +1,10 @@
 package de.javacourse;
 
+import de.javacourse.rules.Rule;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main
 {
     public static void main(String[] args)
@@ -13,9 +18,12 @@ public class Main
         Board board = boardFactory.createBoard(width, height);
 
         NeighbourHelper neighbourHelper = new NeighbourHelper();
-        Rules rules = new Rules();
 
-        GameController controller = new GameController(board, view, rules, neighbourHelper);
+
+        List<Rule> rules = new ArrayList<Rule>();
+        Rules rule= new Rules(rules);
+
+        GameController controller = new GameController(board, view, rule, neighbourHelper);
         controller.startGame();
     }
 }
