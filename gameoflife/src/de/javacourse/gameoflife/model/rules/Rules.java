@@ -1,13 +1,10 @@
-package de.javacourse;
+package de.javacourse.gameoflife.model.rules;
 
-<<<<<<< Updated upstream
-=======
 
-import de.javacourse.rules.Rule;
+import de.javacourse.gameoflife.model.Cell;
 
 import java.util.List;
 
->>>>>>> Stashed changes
 public class Rules
 {
     private List<Rule> rules;
@@ -19,17 +16,13 @@ public class Rules
 
     public boolean isAliveFuture(Cell cell, int neighboursAliveCount)
     {
-<<<<<<< Updated upstream
-        return false;
-=======
         for (Rule rule : rules){
-            if (rule.hasResult(cell, neighboursAliveCount)){
+            if (rule.isApplicable(cell, neighboursAliveCount)){
                 return rule.getFutureAlive(cell, neighboursAliveCount);
             }
         }
 
         throw new RuntimeException("no matching rule");
->>>>>>> Stashed changes
     }
 }
 

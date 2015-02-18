@@ -1,4 +1,7 @@
-package de.javacourse;
+package de.javacourse.gameoflife.view;
+
+import de.javacourse.gameoflife.model.Board;
+import de.javacourse.gameoflife.model.Cell;
 
 public class ConsoleView implements View
 {

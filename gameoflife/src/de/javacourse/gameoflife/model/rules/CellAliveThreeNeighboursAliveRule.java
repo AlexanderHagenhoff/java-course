@@ -1,11 +1,11 @@
-package de.javacourse.rules;
+package de.javacourse.gameoflife.model.rules;
 
-import de.javacourse.Cell;
+import de.javacourse.gameoflife.model.Cell;
 
 public class CellAliveThreeNeighboursAliveRule implements Rule
 {
     @Override
-    public boolean hasResult(Cell cell, int neighboursAliveCount)
+    public boolean isApplicable(Cell cell, int neighboursAliveCount)
     {
         return cell.isAlivePresent() && neighboursAliveCount == 3;
     }
@@ -13,7 +13,7 @@ public class CellAliveThreeNeighboursAliveRule implements Rule
     @Override
     public boolean getFutureAlive(Cell cell, int neighboursAliveCount) throws RuntimeException
     {
-        if (hasResult(cell, neighboursAliveCount) == false){
+        if (isApplicable(cell, neighboursAliveCount) == false){
             throw new RuntimeException("no result");
         }
 

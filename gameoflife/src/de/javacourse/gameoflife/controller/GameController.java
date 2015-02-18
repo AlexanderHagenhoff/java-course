@@ -1,4 +1,9 @@
-package de.javacourse;
+package de.javacourse.gameoflife.controller;
+
+import de.javacourse.gameoflife.model.Board;
+import de.javacourse.gameoflife.model.NeighbourHelper;
+import de.javacourse.gameoflife.model.rules.Rules;
+import de.javacourse.gameoflife.view.View;
 
 public class GameController
 {

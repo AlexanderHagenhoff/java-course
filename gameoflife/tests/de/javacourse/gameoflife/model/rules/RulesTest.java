@@ -1,7 +1,6 @@
-package de.javacourse;
+package de.javacourse.gameoflife.model.rules;
 
-import de.javacourse.rules.CellAliveThreeNeighboursAliveRule;
-import de.javacourse.rules.Rule;
+import de.javacourse.gameoflife.model.Cell;
 import org.junit.Test;
 
 

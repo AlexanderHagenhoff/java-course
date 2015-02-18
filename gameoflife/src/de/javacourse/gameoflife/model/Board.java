@@ -1,4 +1,4 @@
-package de.javacourse;
+package de.javacourse.gameoflife.model;
 
 public class Board
 {
