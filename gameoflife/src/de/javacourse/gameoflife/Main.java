@@ -25,7 +25,6 @@ public class Main
 
         NeighbourHelper neighbourHelper = new NeighbourHelper();
 
-
         List<Rule> rules = new ArrayList<Rule>();
         rules.add(new CellAliveThreeNeighboursAliveRule());
         rules.add(new CellAliveTwoNeighboursAliveRule());
