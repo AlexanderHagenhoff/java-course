@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class CellAliveThreeNeighboursAliveRuleTest
+public class CellAliveTwoOrThreeNeighboursAliveRuleTest
 {
     @Test
     public void isApplicable_should_return_true_on_cell_alive_three_neighbours_alive() throws Exception
@@ -13,7 +13,7 @@ public class CellAliveThreeNeighboursAliveRuleTest
         Cell cell = new Cell();
         cell.setAlivePresent(true);
 
-        Rule rule = new CellAliveThreeNeighboursAliveRule();
+        Rule rule = new CellAliveTwoOrThreeNeighboursAliveRule();
 
         boolean result = rule.isApplicable(cell, 3);
 
@@ -26,7 +26,7 @@ public class CellAliveThreeNeighboursAliveRuleTest
         Cell cell = new Cell();
         cell.setAlivePresent(true);
 
-        Rule rule = new CellAliveThreeNeighboursAliveRule();
+        Rule rule = new CellAliveTwoOrThreeNeighboursAliveRule();
 
         boolean result = rule.isApplicable(cell, 4);
 
@@ -34,16 +34,16 @@ public class CellAliveThreeNeighboursAliveRuleTest
     }
 
     @Test
-    public void isApplicable_should_return_false_on_cell_alive_two_neighbours_alive() throws Exception
+    public void isApplicable_should_return_true_on_cell_alive_two_neighbours_alive() throws Exception
     {
         Cell cell = new Cell();
         cell.setAlivePresent(true);
 
-        Rule rule = new CellAliveThreeNeighboursAliveRule();
+        Rule rule = new CellAliveTwoOrThreeNeighboursAliveRule();
 
         boolean result = rule.isApplicable(cell, 2);
 
-        assertFalse(result);
+        assertTrue(result);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class CellAliveThreeNeighboursAliveRuleTest
         Cell cell = new Cell();
         cell.setAlivePresent(false);
 
-        Rule rule = new CellAliveThreeNeighboursAliveRule();
+        Rule rule = new CellAliveTwoOrThreeNeighboursAliveRule();
 
         boolean result = rule.isApplicable(cell, 3);
 
@@ -62,7 +62,7 @@ public class CellAliveThreeNeighboursAliveRuleTest
     @Test
     public void getFutureAlive_should_return_true_on_cell_alive_three_neighbours_alive() throws Exception
     {
-        Rule rule = new CellAliveThreeNeighboursAliveRule();
+        Rule rule = new CellAliveTwoOrThreeNeighboursAliveRule();
 
         Cell cell = new Cell();
         cell.setAlivePresent(true);
@@ -75,7 +75,7 @@ public class CellAliveThreeNeighboursAliveRuleTest
     @Test(expected = RuntimeException.class)
     public void getFutureAlive_should_throw_exception_on_cell_dead_three_neighbours_alive() throws Exception
     {
-        Rule rule = new CellAliveThreeNeighboursAliveRule();
+        Rule rule = new CellAliveTwoOrThreeNeighboursAliveRule();
 
         Cell cell = new Cell();
         cell.setAlivePresent(false);
