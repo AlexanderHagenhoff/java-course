@@ -2,21 +2,21 @@ package de.javacourse.gameoflife.model.rules;
 
 import de.javacourse.gameoflife.model.Cell;
 
-public class CellAliveThreeNeighboursAliveRule implements Rule
+public class CellDeadLessOrMoreThenThreeNeighboursAliveRule implements Rule
 {
     @Override
     public boolean isApplicable(Cell cell, int neighboursAliveCount)
     {
-        return cell.isAlivePresent() && neighboursAliveCount == 3;
+        return !cell.isAlivePresent() && neighboursAliveCount > 3 || neighboursAliveCount < 3;
     }
 
     @Override
     public boolean getFutureAlive(Cell cell, int neighboursAliveCount) throws RuntimeException
     {
-        if (isApplicable(cell, neighboursAliveCount) == false){
+        if (isApplicable(cell, neighboursAliveCount) == false) {
             throw new RuntimeException("no result");
         }
 
-        return true;
+        return false;
     }
 }
