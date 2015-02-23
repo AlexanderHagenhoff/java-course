@@ -4,9 +4,8 @@ import de.javacourse.gameoflife.model.Board;
 import de.javacourse.gameoflife.model.BoardFactory;
 import de.javacourse.gameoflife.controller.GameController;
 import de.javacourse.gameoflife.model.NeighbourHelper;
+import de.javacourse.gameoflife.model.rules.*;
 import de.javacourse.gameoflife.view.View;
-import de.javacourse.gameoflife.model.rules.Rule;
-import de.javacourse.gameoflife.model.rules.Rules;
 import de.javacourse.gameoflife.view.ConsoleView;
 
 import java.util.ArrayList;
@@ -28,6 +27,11 @@ public class Main
 
 
         List<Rule> rules = new ArrayList<Rule>();
+        rules.add(new CellAliveThreeNeighboursAliveRule());
+        rules.add(new CellAliveTwoNeighboursAliveRule());
+        rules.add(new CellAliveNotTwoOrThreeNeighboursAliveRule());
+        rules.add(new CellDeadThreeNeighboursAliveRule());
+        rules.add(new CellDeadNotThreeNeighboursAliveRule());
         Rules rule= new Rules(rules);
 
         GameController controller = new GameController(board, view, rule, neighbourHelper);

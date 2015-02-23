@@ -25,16 +25,3 @@ public class Rules
         throw new RuntimeException("no matching rule");
     }
 }
-
-
-/*
-        if (!cell.isAlivePresent()) {
-            return neighboursAliveCount == 3;
-        }
-
-        if (neighboursAliveCount < 2 || neighboursAliveCount > 3) {
-            return false;
-        } else {
-            return true;
-        }
-        */

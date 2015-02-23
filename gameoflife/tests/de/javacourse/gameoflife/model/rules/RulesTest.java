@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class RulesTest
 {
     @Test
-    public void cell_is_death_and_2_Neighbours_are_alive_should_return_false()
+    public void cell_is_dead_and_2_Neighbours_are_alive_should_return_false()
     {
        Cell cell= new Cell();
        cell.setAlivePresent(false);
@@ -29,7 +29,7 @@ public class RulesTest
 
 
     @Test
-    public void cell_is_death_and_3_Neighbours_are_alive_should_return_true()
+    public void cell_is_dead_and_3_Neighbours_are_alive_should_return_true()
     {
         Cell cell= new Cell();
         cell.setAlivePresent(false);
@@ -40,7 +40,7 @@ public class RulesTest
     }
 
     @Test
-    public void cell_is_death_and_4_Neighbours_are_alive_should_return_false()
+    public void cell_is_dead_and_4_Neighbours_are_alive_should_return_false()
     {
         Cell cell= new Cell();
         cell.setAlivePresent(false);
@@ -107,8 +107,12 @@ public class RulesTest
 
     private Rules createRules(){
         List<Rule> rules = new ArrayList<Rule>();
+        rules.add(new CellAliveTwoNeighboursAliveRule());
         rules.add(new CellAliveThreeNeighboursAliveRule());
-        
+        rules.add(new CellAliveNotTwoOrThreeNeighboursAliveRule());
+        rules.add(new CellDeadThreeNeighboursAliveRule());
+        rules.add(new CellDeadNotThreeNeighboursAliveRule());
+
         return new Rules(rules);
     }
 
