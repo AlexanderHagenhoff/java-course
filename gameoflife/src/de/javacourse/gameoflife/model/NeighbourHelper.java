@@ -1,8 +1,7 @@
 package de.javacourse.gameoflife.model;
 
-public class NeighbourHelper
-{
-    public int getNeighboursAliveCount(Board board, int x, int y)
+public class NeighbourHelper {
+   /* public int getNeighboursAliveCount(Board board, int x, int y)
     {
         int neighboursAliveCount = 0;
 
@@ -36,5 +35,31 @@ public class NeighbourHelper
         }
 
         return neighboursAliveCountForY;
+    }*/
+
+    public int getNeighboursAliveCount(Board board, int x, int y)
+    {
+        int neighboursAliveCount = 0;
+
+        for (int posY = y - 1; posY <= y + 1; posY++) {
+            for (int posX = x - 1; posX <= x + 1; posX++) {
+
+                if (x == posX && y == posY) {
+                    continue;
+                }
+
+                Cell cell = board.getCell(posY, posX);
+
+                if (cell == null) {
+                    continue;
+                }
+
+                if (cell.isAlivePresent()) {
+                    neighboursAliveCount++;
+                }
+            }
+        }
+
+        return neighboursAliveCount;
     }
 }
