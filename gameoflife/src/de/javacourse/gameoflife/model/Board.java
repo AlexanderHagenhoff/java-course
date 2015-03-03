@@ -1,11 +1,9 @@
 package de.javacourse.gameoflife.model;
 
-public class Board
-{
+public class Board {
     private Cell[][] cells;
 
-    public Board(int width, int height)
-    {
+    public Board(int width, int height) {
         cells = new Cell[width][height];
 
         for (int y = 0; y < this.getHeigth(); y++) {
@@ -17,6 +15,10 @@ public class Board
 
     public Cell getCell(int x, int y)
     {
+        if (isOutOfBounds(x, y)) {
+            return null;
+        }
+
         return cells[x][y];
     }
 
@@ -28,5 +30,9 @@ public class Board
     public int getHeigth()
     {
         return cells[0].length;
+    }
+
+    private boolean isOutOfBounds(int x, int y) {
+        return x < 0 || x >= getWidth() || y < 0 || y >= getHeigth();
     }
 }

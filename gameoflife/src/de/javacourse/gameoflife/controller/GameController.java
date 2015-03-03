@@ -1,6 +1,7 @@
 package de.javacourse.gameoflife.controller;
 
 import de.javacourse.gameoflife.model.Board;
+import de.javacourse.gameoflife.model.Cell;
 import de.javacourse.gameoflife.model.NeighbourHelper;
 import de.javacourse.gameoflife.model.rules.Rules;
 import de.javacourse.gameoflife.view.View;
@@ -25,6 +26,38 @@ public class GameController
     public void startGame()
     {
         renderView();
+
+        //this is just quick and dirty to get two generations rendered out
+        prepareNextGeneration();
+        dumpFutureToPresent();
+        renderView();
+    }
+
+    private void prepareNextGeneration()
+    {
+        for (int y = 0; y < board.getHeigth(); y++) {
+            for (int x = 0; x < board.getWidth(); x++) {
+
+                Cell cell = board.getCell(x, y);
+
+                int neighboursAlive = neighbourHelper.getNeighboursAliveCount(board, x, y);
+                boolean isCellAliveFuture = rules.isAliveFuture(cell, neighboursAlive);
+
+                cell.setAliveFuture(isCellAliveFuture);
+            }
+        }
+    }
+
+    private void dumpFutureToPresent()
+    {
+        for (int y = 0; y < board.getHeigth(); y++) {
+            for (int x = 0; x < board.getWidth(); x++) {
+
+                Cell cell = board.getCell(x, y);
+
+                cell.setAlivePresent(cell.isAliveFuture());
+            }
+        }
     }
 
     private void renderView()

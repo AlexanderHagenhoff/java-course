@@ -10,14 +10,18 @@ public class ConsoleView implements View
     {
         System.out.print("\n\n");
 
+        printLineNumbersX(board.getWidth());
+
         for (int y = 0; y < board.getHeigth(); y++) {
+            System.out.print(getFormattedNumber(y) + " ");
+
             for (int x = 0; x < board.getWidth(); x++) {
-                char drawIcon = ' ';
+                String drawIcon = "[ ]";
 
                 Cell cell = board.getCell(x,y);
 
                 if (cell.isAlivePresent()) {
-                    drawIcon = '*';
+                    drawIcon = "[*]";
                 }
 
                 System.out.print(drawIcon);
@@ -27,5 +31,29 @@ public class ConsoleView implements View
         }
 
         System.out.print("\n\n");
+    }
+
+    private void printLineNumbersX(int boardWidth)
+    {
+        System.out.print("    ");
+
+        for (int i = 0; i < boardWidth; i++) {
+            System.out.print(getFormattedNumber(i) + " ");
+        }
+
+        System.out.print("\n");
+    }
+
+    private String getFormattedNumber(int number)
+    {
+        String formattedNumber;
+
+        if (number < 10) {
+            formattedNumber = String.valueOf(number) + " ";
+        } else {
+            formattedNumber = String.valueOf(number);
+        }
+
+        return formattedNumber;
     }
 }
