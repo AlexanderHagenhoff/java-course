@@ -25,12 +25,18 @@ public class GameController
 
     public void startGame()
     {
-        renderView();
+        while(true) {
+            renderView();
 
-        //this is just quick and dirty to get two generations rendered out
-        prepareNextGeneration();
-        dumpFutureToPresent();
-        renderView();
+            prepareNextGeneration();
+            dumpFutureToPresent();
+            try {
+                Thread.sleep(40);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     private void prepareNextGeneration()
@@ -40,7 +46,7 @@ public class GameController
 
                 Cell cell = board.getCell(x, y);
 
-                int neighboursAlive = neighbourHelper.getNeighboursAliveCount(board, x, y);
+                int neighboursAlive = neighbourHelper.getNeighboursAliveCount(x, y);
                 boolean isCellAliveFuture = rules.isAliveFuture(cell, neighboursAlive);
 
                 cell.setAliveFuture(isCellAliveFuture);

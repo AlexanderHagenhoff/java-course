@@ -2,39 +2,29 @@ package de.javacourse.gameoflife.model;
 
 public class NeighbourHelper
 {
-    public int getNeighboursAliveCount(Board board, int x, int y)
+    private Board board;
+
+    public NeighbourHelper(Board board)
     {
-        int neighboursAliveCount = 0;
-
-        if (y != 0) {
-            neighboursAliveCount += getNeighboursAliveCountForY(board, x, y - 1, false);
-        }
-
-        neighboursAliveCount += getNeighboursAliveCountForY(board, x, y, true);
-
-        if (y != board.getHeigth() - 1) {
-            neighboursAliveCount += getNeighboursAliveCountForY(board, x, y + 1, false);
-        }
-
-        return neighboursAliveCount;
+        this.board = board;
     }
 
-    private int getNeighboursAliveCountForY(Board board, int x, int y, boolean cellHasSameY)
+    public int getNeighboursAliveCount(int x, int y)
     {
-        int neighboursAliveCountForY = 0;
+        int count = 0;
 
-        if (x != 0) {
-            neighboursAliveCountForY += (board.getCell(x - 1, y).isAlivePresent()) ? 1 : 0;
+        for (int j = y - 1; j <= y + 1; j++) {
+            for (int i = x - 1; i <= x + 1; i++) {
+                if (j == y && i == x) {
+                    continue;
+                }
+                Cell cell = board.getCell(i, j);
+                if (cell != null && cell.isAlivePresent()) {
+                    count++;
+                }
+            }
         }
 
-        if (!cellHasSameY) {
-            neighboursAliveCountForY += (board.getCell(x, y).isAlivePresent()) ? 1 : 0;
-        }
-
-        if (x != board.getWidth() - 1) {
-            neighboursAliveCountForY += (board.getCell(x + 1, y).isAlivePresent()) ? 1 : 0;
-        }
-
-        return neighboursAliveCountForY;
+        return count;
     }
 }

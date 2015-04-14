@@ -1,12 +1,18 @@
 package de.javacourse.gameoflife;
 
+import de.javacourse.gameoflife.controller.GameController;
 import de.javacourse.gameoflife.model.Board;
 import de.javacourse.gameoflife.model.BoardFactory;
-import de.javacourse.gameoflife.controller.GameController;
 import de.javacourse.gameoflife.model.NeighbourHelper;
-import de.javacourse.gameoflife.model.rules.*;
+import de.javacourse.gameoflife.model.rules.CellAliveNotTwoOrThreeNeighboursAliveRule;
+import de.javacourse.gameoflife.model.rules.CellAliveThreeNeighboursAliveRule;
+import de.javacourse.gameoflife.model.rules.CellAliveTwoNeighboursAliveRule;
+import de.javacourse.gameoflife.model.rules.CellDeadNotThreeNeighboursAliveRule;
+import de.javacourse.gameoflife.model.rules.CellDeadThreeNeighboursAliveRule;
+import de.javacourse.gameoflife.model.rules.Rule;
+import de.javacourse.gameoflife.model.rules.Rules;
+import de.javacourse.gameoflife.view.FrameView;
 import de.javacourse.gameoflife.view.View;
-import de.javacourse.gameoflife.view.ConsoleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +21,15 @@ public class Main
 {
     public static void main(String[] args)
     {
-        int width = 20;
-        int height = 21;
+        int width = 200;
+        int height = 200;
 
-        View view = new ConsoleView();
+        View view = new FrameView();
 
         BoardFactory boardFactory = new BoardFactory();
         Board board = boardFactory.createBoard(width, height);
 
-        NeighbourHelper neighbourHelper = new NeighbourHelper();
+        NeighbourHelper neighbourHelper = new NeighbourHelper(board);
 
         List<Rule> rules = new ArrayList<Rule>();
         rules.add(new CellAliveThreeNeighboursAliveRule());
@@ -31,7 +37,7 @@ public class Main
         rules.add(new CellAliveNotTwoOrThreeNeighboursAliveRule());
         rules.add(new CellDeadThreeNeighboursAliveRule());
         rules.add(new CellDeadNotThreeNeighboursAliveRule());
-        Rules rule= new Rules(rules);
+        Rules rule = new Rules(rules);
 
         GameController controller = new GameController(board, view, rule, neighbourHelper);
         controller.startGame();

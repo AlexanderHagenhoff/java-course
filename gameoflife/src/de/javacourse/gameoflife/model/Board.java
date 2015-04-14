@@ -17,7 +17,16 @@ public class Board
 
     public Cell getCell(int x, int y)
     {
+        if (isPositionOutOfBounds(x, y)) {
+            return null;
+        }
+
         return cells[x][y];
+    }
+
+    private boolean isPositionOutOfBounds(int x, int y)
+    {
+        return x < 0 || y < 0 || x >= this.getWidth() || y >= this.getHeigth();
     }
 
     public int getWidth()
