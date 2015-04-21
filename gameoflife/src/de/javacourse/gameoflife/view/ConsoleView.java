@@ -33,6 +33,18 @@ public class ConsoleView implements View
         System.out.print("\n\n");
     }
 
+    @Override
+    public int getWidth()
+    {
+        return 20;
+    }
+
+    @Override
+    public int getHeight()
+    {
+        return 20;
+    }
+
     private void printLineNumbersX(int boardWidth)
     {
         System.out.print("    ");

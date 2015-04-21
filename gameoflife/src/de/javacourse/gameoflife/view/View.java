@@ -5,4 +5,8 @@ import de.javacourse.gameoflife.model.Board;
 public interface View
 {
     public void render(Board board);
+
+    int getWidth();
+
+    int getHeight();
 }

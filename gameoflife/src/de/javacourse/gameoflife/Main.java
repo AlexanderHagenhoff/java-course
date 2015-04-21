@@ -21,10 +21,10 @@ public class Main
 {
     public static void main(String[] args)
     {
-        int width = 200;
-        int height = 200;
-
         View view = new FrameView();
+
+        int width = view.getWidth();
+        int height = view.getHeight();
 
         BoardFactory boardFactory = new BoardFactory();
         Board board = boardFactory.createBoard(width, height);

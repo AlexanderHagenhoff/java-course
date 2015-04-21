@@ -6,14 +6,23 @@ import de.javacourse.gameoflife.model.NeighbourHelper;
 import de.javacourse.gameoflife.model.rules.Rules;
 import de.javacourse.gameoflife.view.View;
 
+import static java.lang.String.*;
+
 public class GameController
 {
+    public static final int STAT_PRINT_GENERATION_STEP = 10;
+
     private final NeighbourHelper neighbourHelper;
 
     private final Rules rules;
 
     private final Board board;
+
     private final View view;
+
+    private long generationCount = 0;
+
+    private long lastUpdateMillis = System.currentTimeMillis();
 
     public GameController(Board board, View view, Rules rules, NeighbourHelper neighbourHelper)
     {
@@ -25,18 +34,35 @@ public class GameController
 
     public void startGame()
     {
-        while(true) {
+        while (true) {
+
             renderView();
+
 
             prepareNextGeneration();
             dumpFutureToPresent();
-            try {
-                Thread.sleep(40);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
 
+            generationCount++;
+            printStats();
+        }
+    }
+
+    private void printStats()
+    {
+        if (generationCount % STAT_PRINT_GENERATION_STEP == 0) {
+            long currentTimeMillis = System.currentTimeMillis();
+            long duration = currentTimeMillis - lastUpdateMillis;
+            long generationDuration = duration / STAT_PRINT_GENERATION_STEP;
+            lastUpdateMillis = currentTimeMillis;
+
+            String message = format(
+                "Generation: %d, Duration: %dms, GenerationDuration: %dms",
+                generationCount,
+                duration,
+                generationDuration
+            );
+            System.out.println(message);
+        }
     }
 
     private void prepareNextGeneration()
