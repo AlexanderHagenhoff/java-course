@@ -26,12 +26,14 @@ public class FrameView implements View
     public void render(Board board)
     {
         Graphics g = offscreenImage.getGraphics();
-        //Graphics g = frame.getContentPane().getGraphics();
+        Graphics2D g2d = (Graphics2D)g;
 
-        g.setColor(Color.black);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
 
-        g.setColor(Color.white);
+        g2d.setColor(Color.black);
+        g2d.fillRect(0, 0, getWidth(), getHeight());
+
+        g2d.setColor(Color.white);
 
         int height = board.getHeigth();
         int width = board.getWidth();
@@ -40,7 +42,7 @@ public class FrameView implements View
             for (int x = 0; x < width; x++) {
                 Cell cell = board.getCell(x, y);
                 if (cell.isAlivePresent()) {
-                    g.fillRect(x * SCALE_FACTOR, y * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+                    g2d.fillRect(x * SCALE_FACTOR, y * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
                 }
             }
         }
@@ -66,7 +68,7 @@ public class FrameView implements View
     {
         frame = new JFrame();
 
-        frame.setSize(800, 600);
+        frame.setSize(1024, 768);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setTitle("game of life");
         frame.getContentPane().setBackground(Color.black);

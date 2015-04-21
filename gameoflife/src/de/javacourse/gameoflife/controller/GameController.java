@@ -35,9 +35,7 @@ public class GameController
     public void startGame()
     {
         while (true) {
-
             renderView();
-
 
             prepareNextGeneration();
             dumpFutureToPresent();
@@ -67,6 +65,56 @@ public class GameController
 
     private void prepareNextGeneration()
     {
+        Thread thread = new Thread(
+            new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    for (int y = 0; y < board.getHeigth(); y++) {
+                        for (int x = 0; x < board.getWidth()/2; x++) {
+
+                            Cell cell = board.getCell(x, y);
+
+                            int neighboursAlive = neighbourHelper.getNeighboursAliveCount(x, y);
+                            boolean isCellAliveFuture = rules.isAliveFuture(cell, neighboursAlive);
+
+                            cell.setAliveFuture(isCellAliveFuture);
+                        }
+                    }
+                }
+            }
+        );
+        thread.start();
+        Thread thread2 = new Thread(
+            new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    for (int y = 0; y < board.getHeigth(); y++) {
+                        for (int x = board.getWidth()/2; x < board.getWidth(); x++) {
+
+                            Cell cell = board.getCell(x, y);
+
+                            int neighboursAlive = neighbourHelper.getNeighboursAliveCount(x, y);
+                            boolean isCellAliveFuture = rules.isAliveFuture(cell, neighboursAlive);
+
+                            cell.setAliveFuture(isCellAliveFuture);
+                        }
+                    }
+                }
+            }
+        );
+
+        thread2.start();
+        try {
+            thread.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+          /*
         for (int y = 0; y < board.getHeigth(); y++) {
             for (int x = 0; x < board.getWidth(); x++) {
 
@@ -77,7 +125,7 @@ public class GameController
 
                 cell.setAliveFuture(isCellAliveFuture);
             }
-        }
+        }   */
     }
 
     private void dumpFutureToPresent()
