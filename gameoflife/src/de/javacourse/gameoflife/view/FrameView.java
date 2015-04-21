@@ -24,9 +24,6 @@ public class FrameView implements View
     {
         Graphics g = frame.getContentPane().getGraphics();
 
-        g.setColor(Color.black);
-        g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
-
         g.setColor(Color.white);
 
         int height = board.getHeigth();
@@ -36,8 +33,12 @@ public class FrameView implements View
             for (int x = 0; x < width; x++) {
                 Cell cell = board.getCell(x, y);
                 if (cell.isAlivePresent()) {
-                    g.fillRect(x * SCALE_FACTOR, y * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+                    g.setColor(Color.white);
+                } else {
+                    g.setColor(Color.black);
                 }
+
+                g.fillRect(x * SCALE_FACTOR, y * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
             }
         }
     }
