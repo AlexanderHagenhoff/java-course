@@ -6,6 +6,12 @@ import de.javacourse.gameoflife.model.NeighbourHelper;
 import de.javacourse.gameoflife.model.rules.Rules;
 import de.javacourse.gameoflife.view.View;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import static java.lang.String.*;
 
 public class GameController
@@ -24,6 +30,8 @@ public class GameController
 
     private long lastUpdateMillis = System.currentTimeMillis();
 
+    private ExecutorService executor = Executors.newCachedThreadPool();
+
     public GameController(Board board, View view, Rules rules, NeighbourHelper neighbourHelper)
     {
         this.board = board;
@@ -34,14 +42,38 @@ public class GameController
 
     public void startGame()
     {
-        while (true) {
-            renderView();
+        Runnable renderRunnable = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                while (true) {
+                    renderView();
+                    try {
+                        Thread.sleep(30);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread renderThread = new Thread(renderRunnable);
+        renderThread.start();
 
+        while (true) {
             prepareNextGeneration();
             dumpFutureToPresent();
 
             generationCount++;
-            printStats();
+
+            Runnable printStatsRunnable = new Runnable() {
+                @Override
+                public void run()
+                {
+                    printStats();
+                }
+            };
+            executor.execute(printStatsRunnable);
         }
     }
 
@@ -65,55 +97,30 @@ public class GameController
 
     private void prepareNextGeneration()
     {
-        Thread thread = new Thread(
-            new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    for (int y = 0; y < board.getHeigth(); y++) {
-                        for (int x = 0; x < board.getWidth()/2; x++) {
+        int threadCountVertical = 3;
+        int threadCountHorizontal = 4;
 
-                            Cell cell = board.getCell(x, y);
+        int widthPerThread = board.getWidth() / threadCountHorizontal;
+        int heightPerThread = board.getHeigth() / threadCountVertical;
 
-                            int neighboursAlive = neighbourHelper.getNeighboursAliveCount(x, y);
-                            boolean isCellAliveFuture = rules.isAliveFuture(cell, neighboursAlive);
+        Collection<Callable<Boolean>> callables = new ArrayList<Callable<Boolean>>();
 
-                            cell.setAliveFuture(isCellAliveFuture);
-                        }
-                    }
-                }
+        for (int y = 0; y < threadCountVertical; y++) {
+            for (int x = 0; x < threadCountHorizontal; x++) {
+                Callable<Boolean> runnable = createCallable(
+                    board, x * widthPerThread, y * heightPerThread, widthPerThread, heightPerThread
+                );
+                callables.add(runnable);
             }
-        );
-        thread.start();
-        Thread thread2 = new Thread(
-            new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    for (int y = 0; y < board.getHeigth(); y++) {
-                        for (int x = board.getWidth()/2; x < board.getWidth(); x++) {
+        }
 
-                            Cell cell = board.getCell(x, y);
-
-                            int neighboursAlive = neighbourHelper.getNeighboursAliveCount(x, y);
-                            boolean isCellAliveFuture = rules.isAliveFuture(cell, neighboursAlive);
-
-                            cell.setAliveFuture(isCellAliveFuture);
-                        }
-                    }
-                }
-            }
-        );
-
-        thread2.start();
         try {
-            thread.join();
-            thread2.join();
+            executor.invokeAll(callables);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+
           /*
         for (int y = 0; y < board.getHeigth(); y++) {
             for (int x = 0; x < board.getWidth(); x++) {
@@ -126,6 +133,32 @@ public class GameController
                 cell.setAliveFuture(isCellAliveFuture);
             }
         }   */
+    }
+
+    private Callable<Boolean> createCallable(
+        final Board board, final int xPos, final int yPos, final int width, final int height
+    )
+    {
+        return new Callable<Boolean>()
+        {
+            @Override
+            public Boolean call()
+            {
+                for (int y = yPos; y < yPos + height; y++) {
+                    for (int x = xPos; x < xPos + width; x++) {
+                        Cell cell = board.getCell(x, y);
+
+                        if (cell != null) {
+                            int neighboursAlive = neighbourHelper.getNeighboursAliveCount(x, y);
+                            boolean isCellAliveFuture = rules.isAliveFuture(cell, neighboursAlive);
+
+                            cell.setAliveFuture(isCellAliveFuture);
+                        }
+                    }
+                }
+                return true;
+            }
+        };
     }
 
     private void dumpFutureToPresent()

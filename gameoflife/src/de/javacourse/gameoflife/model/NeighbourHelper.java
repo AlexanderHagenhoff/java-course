@@ -22,6 +22,9 @@ public class NeighbourHelper
                 if (cell != null && cell.isAlivePresent()) {
                     count++;
                 }
+                if (count >= 4) {
+                    return 4;
+                }
             }
         }
 
